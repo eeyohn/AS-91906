@@ -8,10 +8,9 @@ root.title("Find and Dine")
 root.geometry('600x800')
 
 ######### LOGO
-#tk_image = PhotoImage(file="https://www.remove.bg/")
-#image_label = ttk.Label(root, image=tk_image)
-#image_label.place(relx=0.1, rely=0.0)
-#style = ttk.Style()
+tk_image = PhotoImage(file="https://www.remove.bg/")
+image_label = ttk.Label(root, image=tk_image)
+image_label.place(relx=0.1, rely=0.0)
 
 ##################### SECOND WINDOW ######################
 def open_search_window():

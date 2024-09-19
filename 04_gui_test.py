@@ -39,10 +39,10 @@ def main_window():
                 third_window.geometry("600x800")
                 open_search_window.destroy()
 
-                def back_btn_2():
-                    third_window.destroy()
-                    search_window()
-                back_button
+        def clear_entry():
+                lat_input.delete(0, END)
+                lon_input.delete(0,END)
+
 
         ##### INPUT FIELD
         latitude_label = Label(search_window, foreground='white', font=('Helvetica, 12'), text="Latitude:")
@@ -57,7 +57,9 @@ def main_window():
         ##### SEARCH BUTTON 
         coord_search_button = Button(search_window, text="Search", font=('Helvetica, 12'), command=search_again)
         coord_search_button.place(relx=0.7, rely=0.03, relwidth=0.2)
-    ##################
+        ##################
+        clear_button = Button(search_window, text="Clear", font=('Helvetica', 12), command=clear_entry)
+        clear_button.place(relx=0.7, rely=0.1, relwidth=0.2)
         ##### FAST FOOD PLACE - RANKED BASED ON RATIINGS
         first_fastf = Label(search_window, background='light grey', foreground='black', text="first", )
         first_fastf.place(relx=0.0, rely=0.098, relwidth=1.0, relheight=0.2)

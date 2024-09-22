@@ -80,3 +80,4 @@ class Find_and_Dine:
                        ]
         
         self.loc_finder = Fast_Food_Finder(self.fasf_restaurants)
+

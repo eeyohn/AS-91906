@@ -19,7 +19,7 @@ def main_window():
     root.geometry('600x800')
 
     top_frame = ttk.Label(root, text='Find and Dine', font=('Helvetica', 21))
-    top_frame.place(relx=0.5, rely=0.1, anchor='center')
+    top_frame.place(relx=0.5, rely=0.75, anchor='center')
 
     # Define the search window function outside the main_window function
     def open_search_window():
@@ -36,8 +36,8 @@ def main_window():
         back_button.place(relx=0.45, rely=0.95)
 
         def search_again():
-            # Add functionality for searching restaurants here
-            pass
+            lat = lat_input.get()
+            lon = lon_input.get()
 
         def clear_entry():
             lat_input.delete(0, END)
@@ -56,19 +56,22 @@ def main_window():
 
         # Search Button
         coord_search_button = Button(search_window, text="Search", font=('Helvetica', 12), command=search_again)
-        coord_search_button.place(relx=0.7, rely=0.03, relwidth=0.2)
+        coord_search_button.place(relx=0.6, rely=0.03, relwidth=0.2)
 
         clear_button = Button(search_window, text="Clear", font=('Helvetica', 12), command=clear_entry)
-        clear_button.place(relx=0.7, rely=0.1, relwidth=0.2)
+        clear_button.place(relx=0.8, rely=0.03, relwidth=0.1)
 
         # Fast Food Place Labels
         for i in range(4):
             fastf_label = Label(search_window, background='light grey', foreground='black', text=f"{i + 1}. Place {i + 1}")
             fastf_label.place(relx=0.0, rely=0.1 + i * 0.2, relwidth=1.0, relheight=0.2)
 
+        # ERROR Message
+        error_message = Label(search_window, text="", font=('Helvetica', 12), foreground='red')
+        error_message.place(relx=0.05, rely=0.85)
     # Button to open search window
     intro_search_button = Button(root, text='Search', height=2, command=open_search_window, font=('Helvetica', 20))
-    intro_search_button.place(relx=0.25, rely=0.2, relwidth=0.5)
+    intro_search_button.place(relx=0.25, rely=0.8, relwidth=0.5)
 
     root.mainloop()
 

@@ -1,7 +1,7 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import ImageTk, Image
-
+import re
 
 
 ######### LOGO
@@ -18,11 +18,30 @@ def main_window():
     root.title("Find and Dine")
     root.geometry('600x800')
 
-    top_frame = ttk.Label(root, text='Find and Dine', font=('Helvetica', 21))
-    top_frame.place(relx=0.5, rely=0.75, anchor='center')
+def validate_coord(user_input):
+    """Validate if the input is a valid coordinate (latitude, longitude)."""
+    if user_input == "":
+        return False  # Reject empty input
+
+    # Regular expression to match valid coordinates in "latitude, longitude" format
+    pattern = r'^[-]?(90(\.0+)?|[1-8]?[0-9](\.[0-9]+)?)\s*,\s*[-]?((180(\.0+)?)|((1[0-7][0-9]|[1-9]?[0-9])(\.[0-9]+)?))$'
+
+    if not re.match(pattern, user_input):
+        return False
+
+    return True
+
+    
+##### Validation Command
+    validate_lat_comm = root.register(validate_coord)
+    validate_lon_commk = root.register(validate_coord)
+
+
+top_frame = ttk.Label(root, text='Find and Dine', font=('Helvetica', 21))
+top_frame.place(relx=0.5, rely=0.75, anchor='center')
 
     # Define the search window function outside the main_window function
-    def open_search_window():
+def open_search_window():
         root.withdraw()  # Hide the main window
         search_window = Tk()
         search_window.title("Find and Dine")
@@ -46,12 +65,12 @@ def main_window():
         # Input Fields
         latitude_label = Label(search_window, text="Latitude:", font=('Helvetica', 12))
         latitude_label.place(relx=0.05, rely=0.01, anchor='nw')
-        lat_input = Entry(search_window, font=('Helvetica', 12))
+        lat_input = Entry(search_window, font=('Helvetica', 12), validatecommand=(valid_input, '%S'))
         lat_input.place(relx=0.05, rely=0.03, anchor='nw', relwidth=0.25)
 
         longitude_label = Label(search_window, text="Longitude:", font=('Helvetica', 12))
         longitude_label.place(relx=0.32, rely=0.01, anchor='nw')
-        lon_input = Entry(search_window, font=('Helvetica', 12))
+        lon_input = Entry(search_window, font=('Helvetica', 12), validatecommand=(valid_input, '%S'))
         lon_input.place(relx=0.32, rely=0.03, anchor='nw', relwidth=0.25)
 
         # Search Button
@@ -70,10 +89,10 @@ def main_window():
         error_message = Label(search_window, text="", font=('Helvetica', 12), foreground='red')
         error_message.place(relx=0.05, rely=0.85)
     # Button to open search window
-    intro_search_button = Button(root, text='Search', height=2, command=open_search_window, font=('Helvetica', 20))
-    intro_search_button.place(relx=0.25, rely=0.8, relwidth=0.5)
+intro_search_button = Button(root, text='Search', height=2, command=open_search_window, font=('Helvetica', 20))
+intro_search_button.place(relx=0.25, rely=0.8, relwidth=0.5)
 
-    root.mainloop()
+root.mainloop()
 
 main_window()
 

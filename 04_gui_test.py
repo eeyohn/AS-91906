@@ -3,13 +3,6 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import re
 
-
-######### LOGO
-#tk_image = PhotoImage(file="https://www.remove.bg/")
-#image_label = ttk.Label(root, image=tk_image)
-#image_label.place(relx=0.1, rely=0.0)
-#style = ttk.Style()
-
 ################################ FIRST WINDOW ################################
 from tkinter import Tk, Button, Label, Entry, ttk, END
 
@@ -17,6 +10,14 @@ def main_window():
     root = Tk()
     root.title("Find and Dine")
     root.geometry('600x800')
+
+
+######### LOGO
+    image = Image.open('find_and_dine.png')
+    image = ImageTk.PhotoImage(image)
+
+    image_label = tk.Label(root, image=image)
+    image_label.pack()
 
 def validate_coord(user_input):
     """Validate if the input is a valid coordinate (latitude, longitude)."""

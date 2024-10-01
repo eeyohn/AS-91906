@@ -67,16 +67,16 @@ class Find_and_Dine:
         # Coordinates of Fast Food Restaurants in Pakuranga
 
         ################# COORDINATES 
-        self.fastf_locs = [ Fast_Food_Restaurant("Birdy Bytes", -36.91540360714608, 174.87203796632136),
-                       Fast_Food_Restaurant("Burger Fuel", -36.9107909781057,174.87174736090853),
-                       Fast_Food_Restaurant("Subway", -36.91268903482884, 174.87155663683762), 
-                       Fast_Food_Restaurant("Mcdonalds", -36.89963910924124, 174.90058447864246),
-                       Fast_Food_Restaurant("Mighty Hotdog", -36.9123325342632, 174.87065238555024),
-                       Fast_Food_Restaurant("Ok Chiken", -36.91225777477972, 174.87061862899873),
-                       Fast_Food_Restaurant("Pakuranga Pizza", -36.9153257155152, 174.88970536578574),
-                       Fast_Food_Restaurant("Noodle Canteen", -36.912581675641114, 174.87078515794573),
-                       Fast_Food_Restaurant("KFC", -36.9003865591953, 174.89939711340074),
-                       Fast_Food_Restaurant("Porterhouse Grill", -36.912464364020884, 174.8723767088602)
+        self.fastf_locs = [ Fast_Food_Restaurant("Birdy Bytes \n Ratings: 4.7 / 5", -36.91540360714608, 174.87203796632136),
+                       Fast_Food_Restaurant("Burger Fuel \n Ratings: 4.5 /5", -36.9107909781057,174.87174736090853),
+                       Fast_Food_Restaurant("Subway \n Ratings: 3.8 / 5", -36.91268903482884, 174.87155663683762), 
+                       Fast_Food_Restaurant("Mcdonalds \n Ratings: 3.3 / 5", -36.89963910924124, 174.90058447864246),
+                       Fast_Food_Restaurant("Mighty Hotdog \n Ratings: 4.4 / 5", -36.9123325342632, 174.87065238555024),
+                       Fast_Food_Restaurant("Ok Chiken \n Ratings: 4.5 / 5", -36.91225777477972, 174.87061862899873),
+                       Fast_Food_Restaurant("Pakuranga Pizza \n Ratings: 4.5 /5", -36.9153257155152, 174.88970536578574),
+                       Fast_Food_Restaurant("Noodle Canteen \n Ratings: 3.8", -36.912581675641114, 174.87078515794573),
+                       Fast_Food_Restaurant("KFC \n Ratings: 2.9 / 5", -36.9003865591953, 174.89939711340074),
+                       Fast_Food_Restaurant("Porterhouse Grill \n Ratings: 4.3 / 5", -36.912464364020884, 174.8723767088602)
                        ]
         
         self.loc_finder = Fast_Food_Finder(self.fasf_restaurants)

@@ -1,4 +1,5 @@
 from tkinter import Tk, Button, Label, Entry, ttk, END
+from PIL import Image, ImageTk
 import math
 import re
 
@@ -53,6 +54,14 @@ def main_window():
     root.title("Find and Dine")
     root.geometry('600x800')
 
+##### LOGO
+    image = Image.open('find_and_dine.png')
+    image = ImageTk.PhotoImage(image)
+
+    image_label = Label(root, image=image)
+    image_label.place(relx=0.08, rely=0.1)
+
+
     def validate_coord(user_input):
         """Validate if the input is a valid coordinate (latitude, longitude) and reject integers."""
         if user_input == "":
@@ -79,20 +88,20 @@ def main_window():
         except ValueError:
             return False
 
-    top_frame = ttk.Label(root, text='Find and Dine', font=('Helvetica', 21))
-    top_frame.place(relx=0.5, rely=0.1, anchor='center')
-
+    top_frame = ttk.Label(root, text='Find and Dine', font=('Helvetica', 26))
+    top_frame.place(relx=0.5, rely=0.7, anchor='center')
+# Stores the fast food locations name, ratings, and coordinates (latitude, longitude)
     fastf_locs = [
-        FastFoodRestaurant("Birdy Bytes", -36.9154, 174.8720),
-        FastFoodRestaurant("Burger Fuel", -36.9108, 174.8717),
-        FastFoodRestaurant("Subway", -36.9127, 174.8716), 
-        FastFoodRestaurant("Mcdonalds", -36.8996, 174.9006),
-        FastFoodRestaurant("Mighty Hotdog", -36.9123, 174.8707),
-        FastFoodRestaurant("Ok Chicken", -36.9123, 174.8706),
-        FastFoodRestaurant("Pakuranga Pizza", -36.9153, 174.8897),
-        FastFoodRestaurant("Noodle Canteen", -36.9126, 174.8708),
-        FastFoodRestaurant("KFC", -36.9004, 174.8994),
-        FastFoodRestaurant("Porterhouse Grill", -36.9125, 174.8724)
+                       FastFoodRestaurant("Birdy Bytes \n Ratings: 4.7 / 5", -36.91540360714608, 174.87203796632136),
+                       FastFoodRestaurant("Burger Fuel \n Ratings: 4.5 / 5", -36.9107909781057,174.87174736090853),
+                       FastFoodRestaurant("Subway \n Ratings: 3.8 / 5", -36.91268903482884, 174.87155663683762), 
+                       FastFoodRestaurant("Mcdonalds \n Ratings: 3.3 / 5", -36.89963910924124, 174.90058447864246),
+                       FastFoodRestaurant("Mighty Hotdog \n Ratings: 4.4 / 5", -36.9123325342632, 174.87065238555024),
+                       FastFoodRestaurant("Ok Chiken \n Ratings: 4.5 / 5", -36.91225777477972, 174.87061862899873),
+                       FastFoodRestaurant("Pakuranga Pizza \n Ratings: 4.5 /5", -36.9153257155152, 174.88970536578574),
+                       FastFoodRestaurant("Noodle Canteen \n Ratings: 3.8 / 5", -36.912581675641114, 174.87078515794573),
+                       FastFoodRestaurant("KFC \n Ratings: 2.9 / 5", -36.9003865591953, 174.89939711340074),
+                       FastFoodRestaurant("Porterhouse Grill \n Ratings: 4.3 / 5", -36.912464364020884, 174.8723767088602)
     ]
     
     fast_food_finder = FastFoodFinder(fastf_locs)
@@ -118,7 +127,7 @@ def main_window():
                 try:
                     # Manually check that latitude and longitude have a decimal point
                     if '.' not in lat or '.' not in lon:
-                        raise ValueError("Coordinates must have decimal points")
+                        raise ValueError("Invalid Coordinate. Try again")
 
                     lat_float = float(lat)
                     lon_float = float(lon)
@@ -166,18 +175,18 @@ def main_window():
 
         fastf_labels = []
         for i in range(4):
-            label = Label(search_window, background='light grey', foreground='black', text="")
+            label = Label(search_window, background='white', foreground='black', text="", font=('Helvetica', 17))
             label.place(relx=0.0, rely=0.1 + i * 0.2, relwidth=1.0, relheight=0.2)
             fastf_labels.append(label)
 
         for i, restaurant in enumerate(fastf_locs[:4]):
             fastf_labels[i].config(text=f"{i + 1}. {restaurant.name}")
 
-        error_label = Label(search_window, text="", font=('Helvetica', 12), foreground='red')
-        error_label.place(relx=0.05, rely=0.85)
+        error_label = Label(search_window, text="", font=('Helvetica', 15), foreground='red')
+        error_label.place(relx=0.05, rely=0.90)
 
     intro_search_button = Button(root, text='Search', height=2, command=open_search_window, font=('Helvetica', 20))
-    intro_search_button.place(relx=0.25, rely=0.2, relwidth=0.5)
+    intro_search_button.place(relx=0.25, rely=0.75, relwidth=0.5)
 
     root.mainloop()
 

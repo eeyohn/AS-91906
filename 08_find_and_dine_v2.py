@@ -55,7 +55,7 @@ class FastFoodFinder:
 
 # GUI APPLICATION
 
-
+# Introductory Window
 def main_window():
     root = Tk()
     root.title("Find and Dine")
@@ -94,6 +94,7 @@ def main_window():
         except ValueError:
             return False
 
+# Title in the Introductory Window
     program_title = ttk.Label(
         root, text='Find and Dine', font=('Helvetica', 26))
     program_subtitle = ttk.Label(root, text='(Pakuranga)', font=('Arial', 18))
@@ -125,12 +126,14 @@ def main_window():
 
     fast_food_finder = FastFoodFinder(fastf_locs)
 
+# Second Window where users could search
     def open_search_window():
         root.withdraw()  # Hide the main window
         search_window = Tk()
         search_window.title("Find and Dine")
         search_window.geometry('600x800')
 
+# Window goes back to the Introductory window
         def back_btn():
             search_window.destroy()
             root.deiconify()  # Show the main window again
@@ -170,6 +173,7 @@ def main_window():
                         label.config(text="")
                     error_label.config(text=str(e))
 
+# Clear user's entry fro latitude and longitude
         def clear_entry():
             lat_input.delete(0, END)
             lon_input.delete(0, END)
@@ -209,6 +213,7 @@ def main_window():
         for i, restaurant in enumerate(fastf_locs[:4]):
             fastf_labels[i].config(text=f"{i + 1}. {restaurant.name}")
 
+# Error label when users input an invalid coordinate
         error_label = Label(search_window, text="", font=(
             'Helvetica', 15), foreground='red')
         error_label.place(relx=0.05, rely=0.90)

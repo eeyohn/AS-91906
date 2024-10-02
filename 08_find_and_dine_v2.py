@@ -88,8 +88,10 @@ def main_window():
         except ValueError:
             return False
 
-    top_frame = ttk.Label(root, text='Find and Dine', font=('Helvetica', 26))
-    top_frame.place(relx=0.5, rely=0.7, anchor='center')
+    program_title = ttk.Label(root, text='Find and Dine', font=('Helvetica', 26))
+    program_subtitle = ttk.Label(root, text='(Pakuranga)', font=('Arial', 18))
+    program_title.place(relx=0.5, rely=0.7, anchor='center')
+    program_subtitle.place(relx=0.5, rely=0.73, anchor='center')
 # Stores the fast food locations name, ratings, and coordinates (latitude, longitude)
     fastf_locs = [
                        FastFoodRestaurant("Birdy Bytes \n Ratings: 4.7 / 5", -36.91540360714608, 174.87203796632136),
@@ -186,7 +188,7 @@ def main_window():
         error_label.place(relx=0.05, rely=0.90)
 
     intro_search_button = Button(root, text='Search', height=2, command=open_search_window, font=('Helvetica', 20))
-    intro_search_button.place(relx=0.25, rely=0.75, relwidth=0.5)
+    intro_search_button.place(relx=0.25, rely=0.76, relwidth=0.5)
 
     root.mainloop()
 

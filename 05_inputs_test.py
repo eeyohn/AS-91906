@@ -1,1 +1,14 @@
-0dd55636485fb29e6d1b72363c1425f1fe4d656e		branch 'main' of https://github.com/eeyohn/AS-91906
+import re
+
+
+def valid_gps_format(coord):
+    pattern = r'^[-]?[0-9]{1,2}\.[0-9]+,\s*[-]?[0-9]{1,3}\.[0-9]+$'
+    return re.match(pattern, coord) is not None
+
+while True:
+    user_loc = input("Please input your location through coordinates (latitude, longitude)")
+
+    if valid_gps_format(user_loc):
+        break
+    else:
+        print("Sorry, that's the wrong format. Please try again")

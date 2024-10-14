@@ -1,7 +1,9 @@
 from tkinter import Tk, Button, Label, Entry, ttk, END
+from tkinter import messagebox  # Import the messagebox module
 from PIL import Image, ImageTk
 import math
 import re
+import random  # Random Module
 
 # FAST FOOD AND LOCATION CLASSES
 
@@ -53,54 +55,30 @@ class FastFoodFinder:
         distances.sort(key=lambda x: x[1])
         return [distances[i][0] for i in range(min(num_nearest, len(distances)))]
 
+
 # GUI APPLICATION
 
-# Introductory Window
 def main_window():
     root = Tk()
     root.title("Find and Dine")
     root.geometry('600x800')
 
-# LOGO
+    # LOGO
     image = Image.open('find_and_dine.png')
     image = ImageTk.PhotoImage(image)
 
     image_label = Label(root, image=image)
     image_label.place(relx=0.08, rely=0.1)
 
-    def validate_coord(user_input):
-        """Validate if the input is a valid coordinate (latitude, longitude) and reject integers."""
-        if user_input == "":
-            return False  # Reject empty input
+    # Title and Subtitle labels
+    program_title = Label(root, text='Find and Dine', font=('Helvetica', 26))
+    program_subtitle = Label(root, text='(Pakuranga)', font=('Arial', 18))
 
-        # Regular expression to match coordinates in the format "latitude, longitude"
-        pattern = r'^[-]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,\s*[-]?((1[0-7][0-9]|[1-9]?\d)(\.\d+)?|180(\.0+)?)$'
+    # Place title and subtitle using `place` geometry manager
+    program_title.place(relx=0.5, rely=0.3, anchor='center')  # Adjust relx and rely
+    program_subtitle.place(relx=0.5, rely=0.35, anchor='center')
 
-        if not re.match(pattern, user_input):
-            return False
-
-        # Split the input into latitude and longitude
-        latitude, longitude = user_input.split(',')
-
-        try:
-            lat_float = float(latitude.strip())
-            lon_float = float(longitude.strip())
-
-            # Ensure the latitude and longitude contain decimal points
-            if '.' not in latitude.strip() or '.' not in longitude.strip():
-                return False
-
-            return True
-        except ValueError:
-            return False
-
-# Title in the Introductory Window
-    program_title = ttk.Label(
-        root, text='Find and Dine', font=('Helvetica', 26))
-    program_subtitle = ttk.Label(root, text='(Pakuranga)', font=('Arial', 18))
-    program_title.place(relx=0.5, rely=0.7, anchor='center')
-    program_subtitle.place(relx=0.5, rely=0.73, anchor='center')
-# Stores the fast food locations name, ratings, and coordinates (latitude, longitude)
+    # Stores the fast food locations name, ratings, and coordinates (latitude, longitude)
     fastf_locs = [
         FastFoodRestaurant("Birdy Bytes \n Ratings: 4.7 / 5", -
                            36.91540360714608, 174.87203796632136),
@@ -126,21 +104,20 @@ def main_window():
 
     fast_food_finder = FastFoodFinder(fastf_locs)
 
-# Second Window where users could search
     def open_search_window():
         root.withdraw()  # Hide the main window
         search_window = Tk()
         search_window.title("Find and Dine")
         search_window.geometry('600x800')
 
-# Window goes back to the Introductory window
+        # Window goes back to the Introductory window
         def back_btn():
             search_window.destroy()
             root.deiconify()  # Show the main window again
 
         back_button = Button(search_window, text="Back",
                              width=5, command=back_btn)
-        back_button.place(relx=0.45, rely=0.95)
+        back_button.place(relx=0.65, rely=0.93)
 
         def search_again():
             lat = lat_input.get()
@@ -169,17 +146,23 @@ def main_window():
                         fastf_labels[i].config(text=f"{i + 1}. {restaurant}")
 
                 except ValueError as e:
-                    for label in fastf_labels:
-                        label.config(text="")
-                    error_label.config(text=str(e))
+                    messagebox.showerror("Input Error", str(e))  # Pop up error message box
 
-# Clear user's entry fro latitude and longitude
+        # Clear user's entry for latitude and longitude
         def clear_entry():
             lat_input.delete(0, END)
             lon_input.delete(0, END)
             for label in fastf_labels:
                 label.config(text="")
-            error_label.config(text="")
+
+        def shuffle_fastf():
+            random.shuffle(fastf_locs)  # Shuffles the fast food locations
+
+            for label in fastf_labels:
+                label.config(text="")
+
+            for i, restaurant in enumerate(fastf_locs[:4]):
+                fastf_labels[i].config(text=f"{i + 1}. {restaurant.name}")
 
         # Input Fields
         latitude_label = Label(
@@ -202,6 +185,10 @@ def main_window():
             'Helvetica', 12), command=clear_entry)
         clear_button.place(relx=0.8, rely=0.03, relwidth=0.1)
 
+        shuffle_button = Button(search_window, text="Shuffle Restaurants", font=(
+            'Helvetica', 12), command=shuffle_fastf)
+        shuffle_button.place(relx=0.2, rely=0.93, relwidth=0.4)
+
         fastf_labels = []
         for i in range(4):
             label = Label(search_window, background='white',
@@ -210,14 +197,9 @@ def main_window():
                         relwidth=1.0, relheight=0.2)
             fastf_labels.append(label)
 
-        for i, restaurant in enumerate(fastf_locs[:4]):
-            fastf_labels[i].config(text=f"{i + 1}. {restaurant.name}")
+        shuffle_fastf()  # Initial shuffle when the search window opens
 
-# Error label when users input an invalid coordinate
-        error_label = Label(search_window, text="", font=(
-            'Helvetica', 15), foreground='red')
-        error_label.place(relx=0.05, rely=0.90)
-
+    # Search Button in the main window
     intro_search_button = Button(
         root, text='Search', height=2, command=open_search_window, font=('Helvetica', 20))
     intro_search_button.place(relx=0.25, rely=0.76, relwidth=0.5)
@@ -225,4 +207,5 @@ def main_window():
     root.mainloop()
 
 
-main_window()
+if __name__ == "__main__":
+    main_window()

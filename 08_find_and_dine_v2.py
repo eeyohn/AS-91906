@@ -74,9 +74,9 @@ def main_window():
     program_title = Label(root, text='Find and Dine', font=('Helvetica', 26))
     program_subtitle = Label(root, text='(Pakuranga)', font=('Arial', 18))
 
-    # Place title and subtitle using `place` geometry manager
-    program_title.place(relx=0.5, rely=0.3, anchor='center')  # Adjust relx and rely
-    program_subtitle.place(relx=0.5, rely=0.35, anchor='center')
+    # Place title and subtitle
+    program_title.place(relx=0.5, rely=0.70, anchor='center') 
+    program_subtitle.place(relx=0.5, rely=0.73, anchor='center')
 
     # Stores the fast food locations name, ratings, and coordinates (latitude, longitude)
     fastf_locs = [
